@@ -43,6 +43,7 @@ type webInterface struct {
 	settingsFile string
 
 	scraper scrape.Scraper
+	storage scrape.Storage
 }
 
 func makeWebInterface(p *profile.Profile, opt *plugin.Options) (*webInterface, error) {
@@ -60,6 +61,7 @@ func makeWebInterface(p *profile.Profile, opt *plugin.Options) (*webInterface, e
 		templates:    templates,
 		settingsFile: settingsFile,
 		scraper:      scrape.NewScraper(),
+		storage:      scrape.NewStorage(),
 	}, nil
 }
 
@@ -140,7 +142,8 @@ func serveWebInterface(hostport string, p *profile.Profile, o *plugin.Options, d
 				w.Header().Set("Content-Disposition", "attachment;filename=profile.pb.gz")
 				p.Write(w)
 			}),
-			"/scrape": http.HandlerFunc(ui.scrape),
+			"/scrape":      http.HandlerFunc(ui.scrape),
+			"/getProfiles": http.HandlerFunc(ui.getProfiles),
 		},
 	}
 
