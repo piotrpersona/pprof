@@ -1,0 +1,13 @@
+# git aliases
+alias gc="git commit -m"
+alias ga="git add"
+alias gp="git push"
+alias gm="git merge"
+alias gch="git checkout"
+alias gb="git branch"
+alias gba="git branch -a"
+alias gl="git log"
+alias gs="git status"
+alias gi="git init"
+alias gf="git fetch"
+alias gpl="git pull"
