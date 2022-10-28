@@ -38,6 +38,8 @@ type source struct {
 	HTTPHostport       string
 	HTTPDisableBrowser bool
 	Comment            string
+
+	Deploy bool
 }
 
 // parseFlags parses the command lines through the specified flags package
@@ -68,6 +70,8 @@ func parseFlags(o *plugin.Options) (*source, []string, error) {
 
 	flagHTTP := flag.String("http", "", "Present interactive web UI at the specified http host:port")
 	flagNoBrowser := flag.Bool("no_browser", false, "Skip opening a browswer for the interactive web UI")
+
+	flagDeploy := flag.Bool("deploy", false, "Run pprof in deployment mode")
 
 	// Flags that set configuration properties.
 	cfg := currentConfig()
@@ -149,6 +153,7 @@ func parseFlags(o *plugin.Options) (*source, []string, error) {
 		HTTPHostport:       *flagHTTP,
 		HTTPDisableBrowser: *flagNoBrowser,
 		Comment:            *flagAddComment,
+		Deploy:             *flagDeploy,
 	}
 
 	if err := source.addBaseProfiles(*flagBase, *flagDiffBase); err != nil {

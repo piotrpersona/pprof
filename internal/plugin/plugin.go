@@ -43,6 +43,9 @@ type Options struct {
 	// authentication checks.
 	HTTPServer    func(args *HTTPServerArgs) error
 	HTTPTransport http.RoundTripper
+
+	// If true then pprof will be run in deployment mode
+	Deploy bool
 }
 
 // Writer provides a mechanism to write data under a certain name,
