@@ -50,7 +50,6 @@ func PProf(eo *plugin.Options) error {
 	}
 
 	if src.Deploy {
-		fmt.Println("HERRRRE")
 		return serveWebInterface("0.0.0.0:8080", p, o, src.HTTPDisableBrowser)
 	}
 
