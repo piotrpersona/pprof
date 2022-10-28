@@ -271,3 +271,25 @@ table tr td {
   background-color: #ebf5fb;
   font-weight: bold;
 }
+<<<<<<< HEAD
+=======
+
+.description {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.description__input {
+  min-width: 300px;
+}
+
+.description__input--submit {
+  background: white !important;
+  padding: 0.25em 1em !important;
+  min-width: 50px;
+  cursor: pointer;
+}
+>>>>>>> 598d210 (input changes)

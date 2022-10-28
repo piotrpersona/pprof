@@ -710,3 +710,23 @@ function viewer(baseUrl, nodes, options) {
     main.focus();
   }
 }
+
+//
+const input = document.getElementById('description__input');
+const submitBtn = document.getElementById('description__input--submit');
+
+
+submitBtn.addEventListener('click', async function(event) {
+  const inputValue = input.value;
+  event.preventDefault();
+
+  const response = await fetch(
+      `/ui/scrape`, {
+        method: "POST",
+        body: JSON.stringify({"scrapeFrom": `${inputValue}`})
+      }
+  );
+
+  const data = await response.json();
+  console.log(data);
+})
