@@ -723,10 +723,12 @@ submitBtn.addEventListener('click', async function(event) {
   const response = await fetch(
       `/ui/scrape`, {
         method: "POST",
-        body: JSON.stringify({"scrapeFrom": `${inputValue}`})
+        body: JSON.stringify({"scrapeFrom": `${inputValue}`}),
+        redirect: "follow",
       }
   );
 
-  // const data = await response.json();
-  console.log(response);
+  const data = await response.json();
+  console.log(data);
+  window.location.href = data.redirectUrl;;
 })

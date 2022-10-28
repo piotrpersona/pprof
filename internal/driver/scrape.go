@@ -13,6 +13,10 @@ type scrapeRequest struct {
 	ScrapeFrom string `json:"scrapeFrom"`
 }
 
+type scrapeResponse struct {
+	RedirectURL string `json:"redirectUrl"`
+}
+
 func (ui *webInterface) scrape(writer http.ResponseWriter, req *http.Request) {
 	ctx := req.Context()
 
@@ -42,7 +46,8 @@ func (ui *webInterface) scrape(writer http.ResponseWriter, req *http.Request) {
 
 	ui.prof = profile
 
-	http.Redirect(writer, req, "/", http.StatusSeeOther)
+	json.NewEncoder(writer).Encode(&scrapeResponse{RedirectURL: "/"})
+	// http.Redirect(writer, req, "/", http.StatusSeeOther)
 	return
 }
 
