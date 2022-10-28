@@ -1,0 +1,5 @@
+GET /ui/scrape
+JSON:
+{
+    "scrapeFrom": "http://localhost:9999/debug/pprof/heap"
+}
