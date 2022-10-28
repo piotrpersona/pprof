@@ -30,6 +30,7 @@ import (
 	"github.com/google/pprof/internal/graph"
 	"github.com/google/pprof/internal/plugin"
 	"github.com/google/pprof/internal/report"
+	"github.com/google/pprof/internal/scrape"
 	"github.com/google/pprof/profile"
 )
 
@@ -40,6 +41,8 @@ type webInterface struct {
 	help         map[string]string
 	templates    *template.Template
 	settingsFile string
+
+	scraper scrape.Scraper
 }
 
 func makeWebInterface(p *profile.Profile, opt *plugin.Options) (*webInterface, error) {
@@ -56,6 +59,7 @@ func makeWebInterface(p *profile.Profile, opt *plugin.Options) (*webInterface, e
 		help:         make(map[string]string),
 		templates:    templates,
 		settingsFile: settingsFile,
+		scraper:      scrape.NewScraper(),
 	}, nil
 }
 
