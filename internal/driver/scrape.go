@@ -13,7 +13,7 @@ type scrapeRequest struct {
 	ScrapeFrom string `json:"scrapeFrom"`
 }
 
-type scrapeResponse struct {
+type redirectResponse struct {
 	RedirectURL string `json:"redirectUrl"`
 }
 
@@ -46,8 +46,7 @@ func (ui *webInterface) scrape(writer http.ResponseWriter, req *http.Request) {
 
 	ui.prof = profile
 
-	json.NewEncoder(writer).Encode(&scrapeResponse{RedirectURL: "/"})
-	// http.Redirect(writer, req, "/", http.StatusSeeOther)
+	json.NewEncoder(writer).Encode(&redirectResponse{RedirectURL: "/"})
 	return
 }
 
@@ -87,8 +86,11 @@ func (ui *webInterface) getProfile(writer http.ResponseWriter, req *http.Request
 		http.Error(writer, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	if profileDump == nil {
+		return
+	}
 
 	ui.prof = profileDump.Prof()
 
-	http.Redirect(writer, req, "/", http.StatusSeeOther)
+	json.NewEncoder(writer).Encode(&redirectResponse{RedirectURL: "/"})
 }

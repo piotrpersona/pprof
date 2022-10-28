@@ -144,6 +144,7 @@ func serveWebInterface(hostport string, p *profile.Profile, o *plugin.Options, d
 			}),
 			"/scrape":      http.HandlerFunc(ui.scrape),
 			"/getProfiles": http.HandlerFunc(ui.getProfiles),
+			"/getProfile":  http.HandlerFunc(ui.getProfile),
 		},
 	}
 
