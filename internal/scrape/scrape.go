@@ -19,7 +19,15 @@ func NewScraper() (scraper Scraper) {
 }
 
 func (s *httpScraper) Scrape(ctx context.Context, url string) (payload []byte, err error) {
-	resp, err := http.Get(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return
+	}
+
+	req = req.WithContext(ctx)
+	client := http.DefaultClient
+
+	resp, err := client.Do(req)
 	if err != nil {
 		err = fmt.Errorf("cannot Get response from %s, err: %s", url, err)
 		return
