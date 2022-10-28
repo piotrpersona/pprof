@@ -20,6 +20,8 @@ package driver
 import (
 	"bytes"
 	"fmt"
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -50,6 +52,9 @@ func PProf(eo *plugin.Options) error {
 	}
 
 	if src.Deploy {
+		go func() {
+			http.ListenAndServe(":9999", nil)
+		}()
 		return serveWebInterface("0.0.0.0:8080", p, o, src.HTTPDisableBrowser)
 	}
 
