@@ -714,6 +714,7 @@ function viewer(baseUrl, nodes, options) {
 //
 const input = document.getElementById('description__input');
 const submitBtn = document.getElementById('description__input--submit');
+const listBtn = document.getElementById('description__button');
 
 
 submitBtn.addEventListener('click', async function(event) {
@@ -731,4 +732,18 @@ submitBtn.addEventListener('click', async function(event) {
   const data = await response.json();
   console.log(data);
   window.location.href = data.redirectUrl;
+})
+
+
+listBtn.addEventListener('click', async function(event) {
+  event.preventDefault();
+
+  const response = await fetch(
+      `/ui/getProfiles`, {
+        method: "GET",
+      }
+  );
+
+  const data = await response;
+  console.log(data);
 })
