@@ -730,5 +730,5 @@ submitBtn.addEventListener('click', async function(event) {
 
   const data = await response.json();
   console.log(data);
-  window.location.href = data.redirectUrl;;
+  window.location.href = data.redirectUrl;
 })
