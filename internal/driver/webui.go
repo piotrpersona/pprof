@@ -136,6 +136,7 @@ func serveWebInterface(hostport string, p *profile.Profile, o *plugin.Options, d
 				w.Header().Set("Content-Disposition", "attachment;filename=profile.pb.gz")
 				p.Write(w)
 			}),
+			"/scrape": http.HandlerFunc(ui.scrape),
 		},
 	}
 
@@ -176,6 +177,7 @@ func getHostAndPort(hostport string) (string, int, error) {
 	}
 	return host, port, nil
 }
+
 func defaultWebServer(args *plugin.HTTPServerArgs) error {
 	ln, err := net.Listen("tcp", args.Hostport)
 	if err != nil {
@@ -253,7 +255,8 @@ func openBrowser(url string, o *plugin.Options) {
 // makeReport generates a report for the specified command.
 // If configEditor is not null, it is used to edit the config used for the report.
 func (ui *webInterface) makeReport(w http.ResponseWriter, req *http.Request,
-	cmd []string, configEditor func(*config)) (*report.Report, []string) {
+	cmd []string, configEditor func(*config),
+) (*report.Report, []string) {
 	cfg := currentConfig()
 	if err := cfg.applyURL(req.URL.Query()); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
@@ -277,7 +280,8 @@ func (ui *webInterface) makeReport(w http.ResponseWriter, req *http.Request,
 
 // render generates html using the named template based on the contents of data.
 func (ui *webInterface) render(w http.ResponseWriter, req *http.Request, tmpl string,
-	rpt *report.Report, errList, legend []string, data webArgs) {
+	rpt *report.Report, errList, legend []string, data webArgs,
+) {
 	file := getFromLegend(legend, "File: ", "unknown")
 	profile := getFromLegend(legend, "Type: ", "unknown")
 	data.Title = file + " " + profile
@@ -389,7 +393,6 @@ func (ui *webInterface) disasm(w http.ResponseWriter, req *http.Request) {
 	ui.render(w, req, "plaintext", rpt, errList, legend, webArgs{
 		TextBody: out.String(),
 	})
-
 }
 
 // source generates a web page containing source code annotated with profile
