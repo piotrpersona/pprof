@@ -271,8 +271,6 @@ table tr td {
   background-color: #ebf5fb;
   font-weight: bold;
 }
-<<<<<<< HEAD
-=======
 
 .description {
   display: flex;
@@ -291,9 +289,5 @@ table tr td {
   padding: 0.25em 1em !important;
   min-width: 50px;
   cursor: pointer;
-<<<<<<< HEAD
+
 }
->>>>>>> 598d210 (input changes)
-=======
-}
->>>>>>> 598d210 (input changes)
